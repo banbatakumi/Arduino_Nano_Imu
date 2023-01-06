@@ -43,20 +43,14 @@ void setup() {
 #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
       Fastwire::setup(400, true);
 #endif
+      Serial.begin(19200);
 
-      // initialize serial communication
-      // (115200 chosen because it is required for Teapot Demo output, but it's
-      // really up to you depending on your project)
-      Serial.begin(38400);
-
-      // initialize device
       mpu.initialize();
 
       if (mpu.testConnection() != true) {
             return;   // 接続失敗
       }
 
-      // load and configure the DMP
       devStatus = mpu.dmpInitialize();
 
       if (devStatus != 0) {
